@@ -13,7 +13,7 @@ to setup-patches
   reset-ticks
 
 
-;oio
+;
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
