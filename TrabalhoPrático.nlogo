@@ -1,28 +1,115 @@
+breed[Lions Lion]
+breed[Hyenas Hyena]
 
+lions-own [energia]
+hyenas-own [energia agrupamento]
+
+
+globals[alimento celulaC celulaV]
 
 to setup
-  reset-ticks
   setup-patches
-  setup-turtles
+  setup-agents
+  reset-ticks
+end
+
+to go
+  tick
+  morte-agentes
 end
 
 to setup-patches
-
-  clear all
+  clear-all
   set-patch-size 15
   reset-ticks
 
+  ask patches with [pcolor = black]
+  [
+    if random 101 < Alimento_Pequeno
+    [
+      set pcolor brown
+    ]
+  ]
 
-;oio
+
+  ask patches with [pcolor = black]
+  [
+    if random 101 < Alimento_Grande
+    [
+      set pcolor red
+    ]
+  ]
+
+  ask n-of n_Abrigos patches with [pcolor = black]
+  [
+    set pcolor blue
+  ]
+
+  set celulaC count patches with [pcolor = brown]
+  set celulaV count patches with [pcolor = red]
+
+
+end
+
+
+to setup-agents
+  create-Lions nLions
+  [
+    set shape "sheep"
+    set color orange
+    set heading 0
+    set energia Energia_Animais
+    setxy random-xcor random-ycor
+  ]
+
+  create-Hyenas nHyenas
+  [
+    set shape "star"
+    set color yellow
+    set heading 0
+    set energia Energia_Animais
+    setxy random-xcor random-ycor
+  ]
+end
+
+to morte-agentes
+  ask Hyenas
+  [
+    if energia <= 0
+    [
+      die
+    ]
+  ]
+
+  ask Lions
+  [
+    if energia <= 0
+    [
+      die
+    ]
+  ]
+end
+
+
+to mover
+
+  ask Lions
+  [
+
+  ]
+
+
+
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
 10
-647
-448
+713
+514
 -1
 -1
-13.0
+15.0
 1
 10
 1
@@ -41,6 +128,113 @@ GRAPHICS-WINDOW
 1
 ticks
 30.0
+
+BUTTON
+29
+29
+92
+62
+Setup
+setup
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+SLIDER
+13
+98
+185
+131
+Alimento_Pequeno
+Alimento_Pequeno
+0
+20
+20.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+13
+139
+185
+172
+Alimento_Grande
+Alimento_Grande
+0
+10
+10.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+13
+181
+185
+214
+nLions
+nLions
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+11
+223
+183
+256
+nHyenas
+nHyenas
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+10
+270
+182
+303
+n_Abrigos
+n_Abrigos
+0
+5
+5.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+10
+318
+182
+351
+Energia_Animais
+Energia_Animais
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
